@@ -1,10 +1,10 @@
 #include <stdio.h>
+
 #include <windows.h>
-#include <winuser.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, wchar_t* pCmdLine, int nCmdShow)
 {
     const wchar_t CLASS_NAME[] = L"Sample Window Class";
 
@@ -16,12 +16,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     wc.cbClsExtra    = 0;
     wc.cbWndExtra    = 0;
     wc.hInstance     = hInstance;
-    wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
+    wc.hIcon         = NULL;
     wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
+    wc.hbrBackground = CreateSolidBrush(RGB(127, 127, 127));
     wc.lpszMenuName  = NULL;
     wc.lpszClassName = CLASS_NAME;
-    wc.hIcon         = NULL;
+    wc.hIconSm       = NULL;
 
     RegisterClassExW(&wc);
 
@@ -29,7 +29,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     (
         0,
         CLASS_NAME,
-        L"Sample Window",
+        pCmdLine,
         WS_OVERLAPPEDWINDOW,
 
         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
